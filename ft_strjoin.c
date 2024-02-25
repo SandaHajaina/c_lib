@@ -1,46 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sranaivo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 11:33:20 by sranaivo          #+#    #+#             */
-/*   Updated: 2024/02/24 16:09:49 by sranaivo         ###   ########.fr       */
+/*   Created: 2024/02/25 14:55:38 by sranaivo          #+#    #+#             */
+/*   Updated: 2024/02/25 16:56:58 by sranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*str;
 	size_t	i;
-	char	*temp;
+	size_t	j;
 
-	if ((ft_strlen(little) > ft_strlen(big)))
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
 		return (0);
-	if (little[0] == 0)
-		return ((char *)big);
 	i = 0;
-	temp = ft_substr(big, 0, len);
-	while (i < len)
-	{
-		if (ft_strncmp((char *)&temp[i], little, ft_strlen(little)) == 0)
-			return ((char *)&big[i]);
-		i++;
-	}
-	return (0);
+	j = 0;
+	while (j < ft_strlen(s1))
+		str[i++] = s1[j++];
+	j = 0;
+	while (j < ft_strlen(s2))
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	return (str);
 }
 /*
-#include <bsd/string.h>
 #include <stdio.h>
 
 int	main(void)
 {
-	int		a;
-	char	s1[] = "iza le izy rse";
-	char	s2[] = "le";
+	char	*s1;
+	char	*s2;
+	char	*str;
 
-	printf("%s", strnstr(s1, s2, 4));
+	s1 = " ";
+	s2 = "zord";
+	str = ft_strjoin(s1, s2);
+	printf("%s", str);
 }
 */
