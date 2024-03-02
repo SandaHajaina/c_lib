@@ -23,8 +23,9 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (str[i++] == uc)
+		if (str[i] == uc)
 			return ((void *)&str[i]);
+		i++;
 	}
 	return (NULL);
 }

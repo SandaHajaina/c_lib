@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sranaivo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 11:12:27 by sranaivo          #+#    #+#             */
-/*   Updated: 2024/02/29 14:20:42 by sranaivo         ###   ########.fr       */
+/*   Created: 2024/03/02 14:38:59 by sranaivo          #+#    #+#             */
+/*   Updated: 2024/03/02 16:55:34 by sranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	long	i;
+	unsigned int	i;
+	char			*res;
 
-	if (src > dest)
+	res = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!res)
+		return (0);
+	i = 0;
+	while (i < ft_strlen(s))
 	{
-		i = 0;
-		while ((size_t)i < n)
-		{
-			*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
-			i++;
-		}
-		return (dest);
+		res[i] = f(i, s[i]);
+		i++;
 	}
-	else
-	{
-		i = n - 1;
-		while (i >= 0)
-		{
-			*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
-			i--;
-		}
-		return (dest);
-	}
+	res[i] = '\0';
+	return (res);
 }
