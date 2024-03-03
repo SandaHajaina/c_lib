@@ -73,7 +73,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = f_count(s1, set);
 	j = b_count(s1, set);
 	nb = ft_strlen(s1) - (i + j);
-	str = malloc(sizeof(char) * nb + 1);
+	str = malloc(sizeof(char) * (nb + 1));
 	if (!str)
 		return (0);
 	j = 0;

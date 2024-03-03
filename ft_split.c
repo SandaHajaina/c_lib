@@ -12,24 +12,109 @@
 
 #include "libft.h"
 
-static int	count(char const *str, char c)
+/*
+static size_t	count_strings(const char *s, char c)
+{
+	size_t	nb_strings;
+
+	nb_strings = 0;
+	while (*s != '\0')
+	{
+		if (*s != c)
+		{
+			while (*s != '\0' && *s != c)
+				s++;
+			nb_strings++;
+			continue ;
+		}
+		s++;
+	}
+	return (nb_strings);
+}
+
+static const char	*dup_until_c(char **dest, const char *src, char c)
+{
+	size_t	len;
+	size_t	i;
+
+	while (*src == c)
+		src++;
+	len = 0;
+	while (src[len] != '\0' && src[len] != c)
+		len++;
+	*dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (*dest == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		(*dest)[i] = src[i];
+		i++;
+	}
+	(*dest)[i] = '\0';
+	src += len + 1;
+	return (src);
+}
+
+static void	free_strs(char ***strs, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		free((*strs)[i]);
+		i++;
+	}
+	free(*strs);
+	*strs = NULL;
+}
+
+char	**ft_split(const char *s, char c)
+{
+	char	**strs;
+	size_t	nb_strings;
+	size_t	i;
+
+	nb_strings = count_strings(s, c);
+	strs = (char **)malloc(sizeof(char *) * (nb_strings + 1));
+	if (strs != NULL)
+	{
+		strs[nb_strings] = NULL;
+		i = 0;
+		while (i < nb_strings)
+		{
+			s = dup_until_c(strs + i, s, c);
+			if (s == NULL)
+			{
+				free_strs(&strs, i);
+				break ;
+			}
+			i++;
+		}
+	}
+	return (strs);
+}
+*/
+
+static int	count_word(char const *str, char c)
 {
 	int	i;
-	int	n;
-	int	l;
+	int	nb;
+	int	len;
 
-	l = ft_strlen(str);
+	len = ft_strlen(str);
 	i = 0;
-	n = 0;
+	nb = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] != c && str[i + 1] == c)
-			n++;
+			nb++;
 		i++;
 	}
-	if (str[l - 1] != c)
-		n++;
-	return (n);
+	if (str[len - 1] != c)
+		nb++;
+	return (nb);
 }
 
 char	**ft_split(char const *s, char c)
@@ -39,7 +124,7 @@ char	**ft_split(char const *s, char c)
 	int		j;
 	int		w;
 
-	str = malloc(sizeof(char *) * (count(s, c) + 1));
+	str = malloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (!str)
 		return (0);
 	i = 0;
