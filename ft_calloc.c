@@ -17,10 +17,12 @@ void	*ft_calloc(size_t count, size_t size)
 	unsigned char	*tmp;
 	size_t			i;
 
-	i = 0;
-	tmp = malloc(count * size);
+	if (size != 0 && count > ((size_t)-1 / size))
+		return (0);
+	tmp = (void *)malloc(count * size);
 	if (!tmp)
 		return (0);
+	i = 0;
 	while (i < count * size)
 		tmp[i++] = 0;
 	return (tmp);
