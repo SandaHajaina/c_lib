@@ -31,16 +31,12 @@ static size_t	count_word(const char *s, char c)
 	return (nb_strings);
 }
 
-char	**ft_split(char const *s, char c)
+void	ft_loop(char const *s, char **str, char c)
 {
-	char	**str;
-	int		i;
-	int		j;
-	int		word;
+	size_t	i;
+	size_t	j;
+	size_t	word;
 
-	str = malloc(sizeof(char *) * (count_word(s, c) + 1));
-	if (!str)
-		return (0);
 	i = 0;
 	word = 0;
 	while (s[i])
@@ -57,6 +53,41 @@ char	**ft_split(char const *s, char c)
 		i += j;
 	}
 	str[word] = 0;
+}
+
+static void	free_mem(char ***str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	str = NULL;
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**str;
+	size_t	i;
+
+	str = malloc(sizeof(char *) * (count_word(s, c) + 1));
+	if (!str)
+		return (NULL);
+	ft_loop(s, str, c);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == NULL)
+		{
+			free_mem(&str);
+			return (NULL);
+		}
+		i++;
+	}
 	return (str);
 }
 
