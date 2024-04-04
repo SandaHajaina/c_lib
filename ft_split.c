@@ -55,39 +55,14 @@ void	ft_loop(char const *s, char **str, char c)
 	str[word] = 0;
 }
 
-static void	free_mem(char ***str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	str = NULL;
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
-	size_t	i;
 
 	str = malloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (!str)
 		return (NULL);
 	ft_loop(s, str, c);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == NULL)
-		{
-			free_mem(&str);
-			return (NULL);
-		}
-		i++;
-	}
 	return (str);
 }
 
